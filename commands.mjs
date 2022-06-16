@@ -29,9 +29,9 @@ const delay = (seconds) => {
     });
 }
 
-export const command = (task) => new Promise((resolve, reject) => {
+export const command = async (task) => new Promise((resolve, reject) => {
     console.log(task);
-    server.once('message', message => {
+    server.once('message', async message => {
         console.log(message.toString());
         const state = await listenState();
         /ok/.test(message.toString())
@@ -50,7 +50,7 @@ export const move = async (to, speed = 80) => {
         z: current.z + to.z,
     })();
     const result = await command(`go ${x} ${y} ${z} ${speed}`);
-    
+
 }
 
 export const start = async () => command('command');
